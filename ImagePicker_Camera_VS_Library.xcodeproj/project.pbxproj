@@ -56,10 +56,10 @@
 		33B9CAA227780C5C00EB305E /* ImagePicker_Camera_VS_Library */ = {
 			isa = PBXGroup;
 			children = (
+				33B9CAA927780C5D00EB305E /* Main.storyboard */,
 				33B9CAA327780C5D00EB305E /* AppDelegate.swift */,
 				33B9CAA527780C5D00EB305E /* SceneDelegate.swift */,
 				33B9CAA727780C5D00EB305E /* ViewController.swift */,
-				33B9CAA927780C5D00EB305E /* Main.storyboard */,
 				33B9CAAC27780C5E00EB305E /* Assets.xcassets */,
 				33B9CAAE27780C5E00EB305E /* LaunchScreen.storyboard */,
 				33B9CAB127780C5E00EB305E /* Info.plist */,
