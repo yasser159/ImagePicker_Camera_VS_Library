@@ -10,11 +10,11 @@ import UIKit
 class ViewController: UIViewController {
     
 var imageName = ""
-var imagePath = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        imageName = genImageName()
     }
 
     @IBOutlet weak var imageView: UIImageView!
@@ -70,29 +70,30 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as! UIImage
         
-        let imagePath = saveJpg(image)
-
-        //let imageName = genImageName()
-        
+        //save image to disk, give it a name and get a url
+        let imagePath = saveJpg(imageName, image)
+        print("URL from funtion: ", imagePath)
         //___________________
-        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        let userDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
-        let paths             = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+//        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+//        let userDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
+//        let paths             = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
         
-        if let dirPath        = paths.first
-        {
-            
-           let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("exampleJpg.jpg")
-            
-            
-           print(imageURL)
-           let image    = UIImage(contentsOfFile: imageURL.path)
-            
-           // Do whatever you want with the image
-            self.imageView.image = image
-            
-        }
-        //___________________
+//        if let dirPath        = paths.first
+//        {
+//           let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(imageName) //"exampleJpg.jpg"
+//           let image    = UIImage(contentsOfFile: imageURL.path)
+//
+//           // Do whatever you want with the image
+//            self.imageView.image = image
+//
+//        }
+//        //___________________
+        
+        // Get Image from file path
+        let image2   = UIImage(contentsOfFile: imagePath.path)
+        
+                   // Do whatever you want with the image
+                    self.imageView.image = image2
         
         self.dismiss(animated: true, completion: nil)
     }

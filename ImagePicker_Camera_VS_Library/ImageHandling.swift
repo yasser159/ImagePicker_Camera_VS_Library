@@ -19,26 +19,26 @@ func documentDirectoryPath() -> URL? {
     return path.first
 }
 
-func saveJpg(_ image: UIImage) -> String {
-    var myPath = ""
-    genImageName()
-
+func saveJpg(_ name: String,_ image: UIImage) -> URL {
+    var myPath = URL(string: "http://google.com/")
     if let jpgData = image.jpegData(compressionQuality: 0.5),
-        let path = documentDirectoryPath()?.appendingPathComponent("exampleJpg.jpg") {
+        let path = documentDirectoryPath()?.appendingPathComponent(name) {
         try? jpgData.write(to: path)
-        myPath = path.description
+        //path
+        myPath = path
     }
-    return myPath
+    return myPath!
 }
 
 // Generate Image Name from Current date
-func genImageName(){
+func genImageName() -> String {
     let date :NSDate = NSDate()
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HHmmssddMMyyyy"//"dd-MM-yyyy'_'HH_mm_ss"
     dateFormatter.timeZone = NSTimeZone(name: "PT") as TimeZone?
     let imageName = "/\(dateFormatter.string(from: date as Date)).jpg"
-    print("imageName: ", imageName)
+    //print("imageName: ", imageName)
+    return imageName
 }
 
 
