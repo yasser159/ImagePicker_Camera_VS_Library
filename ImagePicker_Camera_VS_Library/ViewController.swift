@@ -8,24 +8,28 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+var imageName = ""
+var imagePath = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBAction func chooseImageAction(_ sender: Any) {
         showImagePickerOptions()
     }
+    
+//___________________________________________________________________
     
     func imagePicker(sourceType: UIImagePickerController.SourceType) -> UIImagePickerController{
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = sourceType
         return imagePicker
     }
-    
+
     func showImagePickerOptions(){
         let alertVC = UIAlertController(title: "Pick a Photo", message: "Choose a picture from Library or camera", preferredStyle: .actionSheet)
         
@@ -66,9 +70,30 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as! UIImage
         
-        //print(image)
+        let imagePath = saveJpg(image)
+
+        //let imageName = genImageName()
         
-        self.imageView.image = image
+        //___________________
+        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let userDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
+        let paths             = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+        
+        if let dirPath        = paths.first
+        {
+            
+           let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("exampleJpg.jpg")
+            
+            
+           print(imageURL)
+           let image    = UIImage(contentsOfFile: imageURL.path)
+            
+           // Do whatever you want with the image
+            self.imageView.image = image
+            
+        }
+        //___________________
+        
         self.dismiss(animated: true, completion: nil)
     }
 }
